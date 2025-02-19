@@ -1,0 +1,16 @@
+---
+import { getAllPagesWithSlugs, getPageBySlug } from '../lib/api.js';
+const { slug } = Astro.request.params;
+const page = await getPageBySlug(slug);
+---
+
+export async function getStaticPaths() {
+    const pagesWithSlugs = await getAllPagesWithSlugs();
+    return pagesWithSlugs.edges.map(({ node }) => {
+      return {
+        params: { slug: node.slug },
+      };
+    });
+  }
+
+  
